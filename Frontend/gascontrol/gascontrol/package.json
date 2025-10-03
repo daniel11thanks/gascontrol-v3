@@ -1,0 +1,37 @@
+{
+  "name": "gascontrol",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui",
+    "test": "vitest",
+    "test:run": "vitest run"
+  },
+  "dependencies": {
+    "next": "15.5.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "recharts": "^3.2.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.55.1",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^5.0.3",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.4",
+    "jsdom": "^27.0.0",
+    "typescript": "^5",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.4"
+  }
+}

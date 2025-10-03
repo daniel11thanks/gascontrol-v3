@@ -1,0 +1,37 @@
+.filters {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+
+.select,
+.input {
+  min-width: 200px;        
+  height: 36px;           
+  box-sizing: border-box; 
+  font: inherit;           
+  line-height: 1.2;        
+  padding: 6px 10px;
+}
+
+
+
+.select {
+  appearance: menulist;
+  -webkit-appearance: menulist;
+  -moz-appearance: menulist;
+}
+
+.input[type="date"] {
+  min-width: 200px;
+}
+

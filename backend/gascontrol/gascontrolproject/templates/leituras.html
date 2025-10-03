@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Controle de Gás</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e88e5, #0d47a1);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+
+        .header {
+            background: #1565c0;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #1565c0;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e3f2fd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #2196f3;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #1976d2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+            display: none;
+        }
+
+        .success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .logo i {
+            font-size: 40px;
+            color: #2196f3;
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+            color: #90a4ae;
+            background: #f5f5f5;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .loading i {
+            color: #2196f3;
+            font-size: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Registro de Leituras</h1>
+            <p>Controle de consumo de gás para condomínios</p>
+        </div>
+        
+        <div class="content">
+            <div class="logo">
+                <i class="fas fa-gas-pump"></i>
+            </div>
+            
+            <div id="message" class="message"></div>
+            
+            <form id="leituraForm">
+                <div class="form-group">
+                    <label for="gasometro"><i class="fas fa-water"></i> Gasômetro:</label>
+                    <select id="gasometro" class="form-control" required>
+                        <option value="">Carregando gasômetros...</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="data_leitura"><i class="far fa-calendar-alt"></i> Data da Leitura:</label>
+                    <input type="date" id="data_leitura" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="consumo_m3"><i class="fas fa-fire"></i> Consumo (m³):</label>
+                    <input type="number" id="consumo_m3" class="form-control" step="0.01" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="periodicidade"><i class="fas fa-history"></i> Periodicidade:</label>
+                    <select id="periodicidade" class="form-control" required>
+                        <option value="MENSAL">Mensal</option>
+                        <option value="SEMANAL">Semanal</option>
+                        <option value="BIMESTRAL">Bimestral</option>
+                        <option value="SEMESTRAL">Semestral</option>
+                    </select>
+                </div>
+                
+                <button type="submit"><i class="fas fa-save"></i> Registrar Leitura</button>
+                
+                <div id="loading" class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Processando...
+                </div>
+            </form>
+        </div>
+        
+        <div class="footer">
+            <p>Sistema de Controle de Gás &copy; 2025 | By: Renato Sorgatto </p>
+        </div>
+    </div>
+
+    <script>
+        // URLs da API - Altere conforme sua configuração
+        const API_BASE_URL = 'http://localhost:8000/api';  // URL do seu backend Django
+        const GASOMETROS_API_URL = `${API_BASE_URL}/gasometros/`;
+        const LEITURAS_API_URL = `${API_BASE_URL}/leituras/`;
+        const APARTAMENTO_API_URL = `${API_BASE_URL}/apartamentos/`;
+    
+        // Cache para armazenar dados dos apartamentos
+        const apartamentosCache = new Map();
+
+        // Elementos do DOM
+        const messageDiv = document.getElementById('message');
+        const gasometroSelect = document.getElementById('gasometro');
+        const leituraForm = document.getElementById('leituraForm');
+        const loadingDiv = document.getElementById('loading');
+
+        // Função para exibir mensagens
+        function showMessage(text, type) {
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            messageDiv.style.display = 'block';
+            
+            // Esconder a mensagem após 5 segundos
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+
+    // Função para carregar gasômetros da API
+    async function carregarGasometros() {
+        try {
+            const response = await fetch(GASOMETROS_API_URL);
+            
+            if (!response.ok) {
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+            
+            const gasometros = await response.json();
+            
+            // Limpar select
+            gasometroSelect.innerHTML = '<option value="">Selecione o gasômetro</option>';
+            
+            // Preencher com os gasômetros da API
+            gasometros.forEach(gasometro => {
+                const option = document.createElement('option');
+                option.value = gasometro.id;
+                
+                // Dentro do loop de gasômetro
+                if (gasometro.apartamento_info) {
+                    // Usar a informação formatada do serializer
+                    option.textContent = `${gasometro.codigo} - ${gasometro.apartamento_info}`;
+                } else if (gasometro.apartamento) {
+                    // Fallback para busca individual
+                    option.textContent = `${gasometro.codigo} - Apto ${gasometro.apartamento_numero || gasometro.apartamento}`;
+                } else {
+                    // Caso não tenha informação de apartamento
+                    option.textContent = `${gasometro.codigo}`;
+                }
+                
+                gasometroSelect.appendChild(option);
+            });
+            
+        } catch (error) {
+            console.error('Erro ao carregar gasômetros:', error);
+            gasometroSelect.innerHTML = '<option value="">Erro ao carregar gasômetros</option>';
+            showMessage('Erro ao carregar a lista de gasômetros.', 'error');
+        }
+    }
+
+        // Registrar leitura
+        async function registrarLeitura(leitura) {
+            try {
+                loadingDiv.style.display = 'block';
+                
+                const response = await fetch(LEITURAS_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCSRFToken() // Função para obter o token CSRF
+                    },
+                    body: JSON.stringify(leitura)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showMessage('Leitura registrada com sucesso!', 'success');
+                    leituraForm.reset();
+                    return data;
+                } else {
+                    // Se a resposta não for OK, lançar erro com a mensagem da API
+                    const errorMsg = data.detail || data.message || JSON.stringify(data);
+                    throw new Error(errorMsg);
+                }
+            } catch (error) {
+                console.error('Erro ao registrar leitura:', error);
+                showMessage(`Erro: ${error.message}`, 'error');
+                throw error;
+            } finally {
+                loadingDiv.style.display = 'none';
+            }
+        }
+
+        // Função para obter o token CSRF (necessário para Django)
+        function getCSRFToken() {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, 10) === ('csrftoken=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(10));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Evento quando o formulário é enviado
+        leituraForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const leitura = {
+                gasometro: document.getElementById('gasometro').value,
+                data_leitura: document.getElementById('data_leitura').value,
+                consumo_m3: parseFloat(document.getElementById('consumo_m3').value),
+                periodicidade: document.getElementById('periodicidade').value
+            };
+            
+            // Validação
+            if (!leitura.gasometro) {
+                showMessage('Por favor, selecione um gasômetro.', 'error');
+                return;
+            }
+            
+            if (!leitura.data_leitura) {
+                showMessage('Por favor, selecione uma data.', 'error');
+                return;
+            }
+            
+            if (!leitura.consumo_m3 || leitura.consumo_m3 <= 0) {
+                showMessage('Por favor, informe um consumo válido.', 'error');
+                return;
+            }
+            
+            try {
+                await registrarLeitura(leitura);
+            } catch (error) {
+                // Erro já tratado na função registrarLeitura
+            }
+        });
+
+        // Inicializar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            carregarGasometros();
+            
+            // Definir data atual como padrão
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('data_leitura').value = today;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+
+.sectionTitle {
+  font-size: 1.25rem;
+  margin: 36px 0 20px;
+}
+
+
+.filtersBar {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.chartWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 16px;
+}
+.chartInner {
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  justify-content: center;
+}
+
+
+.form {
+  margin: 16px 0;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.formRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 180px;
+  flex: 1 1 200px;
+}
+
+.input,
+.select {
+  padding: 6px 10px;
+  font: inherit;
+  height: 36px;
+  box-sizing: border-box;
+}
+
+.formActions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.buttonPrimary {
+  background: #60d39f;
+  color: #0b1b13;
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.buttonPrimary:hover {
+  filter: brightness(0.95);
+}
+
+.list {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+  margin-bottom: 50px;
+}
+.item {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px;
+}

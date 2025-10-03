@@ -1,0 +1,68 @@
+.header {
+    box-shadow: 0px 1px 1px rgba(0,0,0,.1);
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    background: white;
+    top: 0px;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+}
+
+.logo {
+    padding: 0.5rem 0;
+}
+
+.login {
+    color: #333;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.login::after {
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 17px;
+    background: url('/assets/usuario.svg') no-repeat center center;
+    margin: 0.5rem;
+    margin-right: 0.7rem;
+    position: relative;
+    top: -1px
+
+}
+
+
+.centerNav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  align-items: center;
+}
+
+.centerLink {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 4px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #333;
+  border: 1px solid transparent;
+}
+
+.centerLink:hover {
+  background: #f3f4f6;
+}

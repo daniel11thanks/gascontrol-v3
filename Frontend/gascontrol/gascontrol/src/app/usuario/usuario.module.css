@@ -1,0 +1,15 @@
+.wrapper {
+  padding-top: 24px;
+}
+
+.logoutBtn {
+  background: #ccc;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+.logoutBtn:hover {
+  filter: brightness(0.98);
+}
